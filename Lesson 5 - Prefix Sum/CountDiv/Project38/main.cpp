@@ -1,7 +1,5 @@
-#include <vector>
-
-using namespace std;
-
+// Time complexity is O(1)
+// Score is 100%
 int solution(int A, int B, int K) {
     // write your code in C++14 (g++ 6.2.0)
     int smallestIntegerDivisibleByK = 0;

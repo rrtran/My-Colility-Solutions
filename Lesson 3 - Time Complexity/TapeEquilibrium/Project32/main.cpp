@@ -1,8 +1,3 @@
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 class Node {
 public:
 	Node() : data(0), link(nullptr) {}
@@ -259,6 +254,8 @@ private:
 	int size;
 };
 
+// Time complexity is O(N)
+// Score is 100%
 int solution(vector<int>& A) {
 	// write your code in C++14 (g++ 6.2.0)
 	DoublyLinkedList list1;
@@ -295,18 +292,4 @@ int solution(vector<int>& A) {
 	}
 
 	return minimalDifference;
-}
-
-int main() {
-	vector<int> A({ 3,1,2,4,3 });
-	SinglyLinkedList list;
-	for (int i = 0; i < A.size(); i++) {
-		list.insertBack(A[i]);
-	}
-
-	list.print();
-	cout << list.computeAbsoluteDifference(1) << endl;
-	cout << list.computeAbsoluteDifference(2) << endl;
-	cout << list.computeAbsoluteDifference(3) << endl;
-	cout << list.computeAbsoluteDifference(4) << endl;
 }

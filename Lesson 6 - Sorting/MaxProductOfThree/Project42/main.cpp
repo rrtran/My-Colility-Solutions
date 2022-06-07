@@ -1,8 +1,26 @@
+#include <iostream>
 #include <vector>
 
 using namespace std;
 
-void divide(vector<int>& s, vector<int>& s1, vector<int>& s2) {
+class Node {
+public:
+    Node() : data(0) {}
+    Node(int data) : data(data) {}
+    int getData() { return data; }
+    int getAbsoluteValue() {
+        if (data < 0)
+            return data * -1;
+        else
+            return data;
+    }
+    void setData(int data) { this->data = data; }
+    ~Node() {}
+private:
+    int data;
+};
+
+void divide(vector<Node>& s, vector<Node>& s1, vector<Node>& s2) {
     for (int i = 0; i < s.size() / 2; i++) {
         s1.push_back(s[i]);
     }
@@ -16,7 +34,7 @@ void divide(vector<int>& s, vector<int>& s1, vector<int>& s2) {
     }
 }
 
-void mergeSortRecur(vector<int>& s) {
+void mergeSortRecur(vector<Node>& s) {
     if (s.size() == 0) {
         return;
     }
@@ -24,8 +42,8 @@ void mergeSortRecur(vector<int>& s) {
         return;
     }
     else {
-        vector<int> s1;
-        vector<int> s2;
+        vector<Node> s1;
+        vector<Node> s2;
         divide(s, s1, s2);
         mergeSortRecur(s1);
         mergeSortRecur(s2);
@@ -33,7 +51,7 @@ void mergeSortRecur(vector<int>& s) {
         int j = 0;
         while (i < s1.size()) {
             if (j < s2.size()) {
-                if (s1[i] < s2[j]) {
+                if (s1[i].getAbsoluteValue() < s2[j].getAbsoluteValue()) {
                     s.push_back(s1[i]);
                     i++;
                 }
@@ -54,41 +72,86 @@ void mergeSortRecur(vector<int>& s) {
     }
 }
 
-void mergeSort(vector<int>& s) {
+void mergeSort(vector<Node>& s) {
+    if (s.size() == 0) {
+        return;
+    }
+    else if (s.size() == 1) {
+        return;
+    }
+
     mergeSortRecur(s);
 }
 
-// Time complexity is O(Nlog(N))
+// Time complexity is O(N * log(N))
+// Score is 100%
 int solution(vector<int>& A) {
     // write your code in C++14 (g++ 6.2.0)
-    mergeSort(A);
-
-    int product = A[A.size() - 1] * A[A.size() - 2] * A[A.size() - 3];
-    int product2 = A[A.size() - 1] * A[0] * A[1];
-    int product3 = A[0] * A[1] * A[2];
-
-    if (product > product2) {
-        if (product > product3) {
-            return product;
-        }
-        else {
-            return product3;
-        }
+    vector<Node> B;
+    for (int i = 0; i < A.size(); i++) {
+        Node node(A[i]);
+        B.push_back(node);
     }
-    else if (product2 > product3) {
-        if (product2 > product) {
-            return product2;
-        }
-        else {
-            return product;
-        }
+
+    mergeSort(B);
+
+    int a = B[B.size() - 3].getData();
+    int b = B[B.size() - 2].getData();
+    int c = B[B.size() - 1].getData();
+    int maximalProduct = a * b * c;
+
+    if (B.size() == 3) {
+        return maximalProduct;
     }
     else {
-        if (product3 > product) {
-            return product3;
+        int index = B.size() - 3;
+        for (int i = B.size() - 3; i >= 0; i--) {
+            a = B[i].getData();
+            int product = a * b * c;
+            if (product > maximalProduct) {
+                maximalProduct = product;
+                index = i;
+            }
         }
-        else {
-            return product;
+        int index2 = B.size() - 2;
+        for (int j = B.size() - 2; j > index; j--) {
+            b = B[j].getData();
+            int product = a * b * c;
+            if (product > maximalProduct) {
+                maximalProduct = product;
+                index2 = j;
+            }
+        }
+        for (int j = index - 1; j >= 0; j--) {
+            b = B[j].getData();
+            int product = a * b * c;
+            if (product > maximalProduct) {
+                maximalProduct = product;
+                index2 = j;
+            }
+        }
+        for (int k = B.size() - 1; k > index2; k--) {
+            c = B[k].getData();
+            int product = a * b * c;
+            if (product > maximalProduct) {
+                maximalProduct = product;
+            }
+        }
+        for (int k = index2 - 1; k > index; k--) {
+            c = B[k].getData();
+            int product = a * b * c;
+            if (product > maximalProduct) {
+                maximalProduct = product;
+            }
+        }
+
+        for (int k = index - 1; k >= 0; k--) {
+            c = B[k].getData();
+            int product = a * b * c;
+            if (product > maximalProduct) {
+                maximalProduct = product;
+            }
         }
     }
+    return maximalProduct;
 }

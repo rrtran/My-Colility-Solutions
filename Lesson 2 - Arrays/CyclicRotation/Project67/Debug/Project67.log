@@ -1,0 +1,2 @@
+﻿  main.cpp
+C:\Users\Aozora\Workspace\CppProjects\Project67\Project67\main.cpp(161): error C4716: 'Queue::front': must return a value

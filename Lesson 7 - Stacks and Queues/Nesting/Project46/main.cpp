@@ -1,7 +1,3 @@
-#include <string>
-
-using namespace std;
-
 class Node {
 public:
     Node() : data(0), link(nullptr) {}
@@ -30,14 +26,12 @@ public:
             first = node;
             last = node;
             size++;
-            return;
         }
         else {
             Node* node = new Node(data);
             node->setLink(first);
             first = node;
             size++;
-            return;
         }
     }
 
@@ -47,14 +41,12 @@ public:
             first = node;
             last = node;
             size++;
-            return;
         }
         else {
             Node* node = new Node(data);
             last->setLink(node);
             last = node;
             size++;
-            return;
         }
     }
 
@@ -73,7 +65,7 @@ public:
             Node* trailCurrent = nullptr;
             Node* current = first;
             while (current != nullptr) {
-                if (current->getData() == data) {
+                if (data == current->getData()) {
                     if (current == first) {
                         first = first->getLink();
                         delete current;
@@ -145,7 +137,7 @@ public:
         list.deleteNode(list.getFirst());
     }
 
-    bool empty() {
+    bool isEmpty() {
         if (list.length() == 0) {
             return true;
         }
@@ -161,8 +153,6 @@ public:
     int size() {
         return list.length();
     }
-
-    ~Stack() {}
 private:
     SinglyLinkedList list;
 };
@@ -170,7 +160,6 @@ private:
 class Queue {
 public:
     Queue() {}
-
     void enqueue(char e) {
         list.insertBack(e);
     }
@@ -179,7 +168,7 @@ public:
         list.deleteNode(list.getFirst());
     }
 
-    bool empty() {
+    bool isEmpty() {
         if (list.length() == 0) {
             return true;
         }
@@ -195,51 +184,40 @@ public:
     int size() {
         return list.length();
     }
-
-    ~Queue() {}
 private:
     SinglyLinkedList list;
 };
 
+// Time complexity is O(N)
+// Score is 100%
 int solution(string& S) {
     // write your code in C++14 (g++ 6.2.0)
-    Stack stack;
     Queue queue;
+    Stack stack;
     for (int i = 0; i < S.length(); i++) {
         queue.enqueue(S[i]);
     }
 
-    while (queue.empty() == false) {
-        if (stack.empty() == true) {
+    while (queue.isEmpty() == false) {
+        if (queue.front() == '(') {
             stack.push(queue.front());
             queue.dequeue();
         }
-        else if (queue.front() == '(') {
-            stack.push(queue.front());
-            queue.dequeue();
-        }
-        else if (queue.front() == ')') {
-            if (stack.top() == '(') {
+        else {
+            if (stack.isEmpty() == true) {
+                return 0;
+            }
+            else if (stack.top() == '(') {
                 stack.pop();
                 queue.dequeue();
             }
-            else {
-                return 0;
-            }
-        }
-        else {
-            return 0;
         }
     }
 
-    if (stack.empty() == false) {
-        return 0;
-    }
-    else {
+    if (stack.isEmpty() == true) {
         return 1;
     }
-}
-
-int main() {
-
+    else {
+        return 0;
+    }
 }

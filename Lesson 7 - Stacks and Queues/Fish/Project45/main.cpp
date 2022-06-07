@@ -1,52 +1,31 @@
-#include <vector>
-
-using namespace std;
-
 class Fish {
 public:
-    Fish() : size(0), downstream(false) {}
-    Fish(int size, bool downstream) : size(size), downstream(downstream) {}
-    Fish(Fish& data) {
-        size = data.getSize();
-        downstream = data.getDownstream();
-    }
+    Fish() : size(0), direction(0) {}
+    Fish(int size, int direction) : size(size), direction(direction) {}
     int getSize() { return size; }
-    int getDownstream() { return downstream; }
+    int getDirection() { return direction; }
     void setSize(int size) { this->size = size; }
-    void setDownstream(int downstream) { this->downstream = downstream; }
-    bool equals(Fish& fish) {
-        if (fish.getSize() == size) {
-            if (fish.getDownstream() == downstream) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-        else {
-            return false;
-        }
-    }
+    void setDirection(int direction) { this->direction = direction; }
     ~Fish() {}
 private:
     int size;
-    int downstream;
+    int direction;
 };
 
 class Node {
 public:
-    Node() : data(0, 0), link(nullptr) {}
-    Node(Fish& data) : data(data), link(nullptr) {}
-    Fish& getData() { return data; }
+    Node() : data(nullptr), link(nullptr) {}
+    Node(Fish* data) : data(data), link(nullptr) {}
+    Fish* getData() { return data; }
     Node* getLink() { return link; }
-    void setData(Fish& data) {
-        this->data.setSize(data.getSize());
-        this->data.setDownstream(data.getDownstream());
-    }
+    void setData(Fish* data) { this->data = data; }
     void setLink(Node* link) { this->link = link; }
-    ~Node() { link = nullptr; }
+    ~Node() {
+        data = nullptr;
+        link = nullptr;
+    }
 private:
-    Fish data;
+    Fish* data;
     Node* link;
 };
 
@@ -58,45 +37,41 @@ public:
         size = 0;
     }
 
-    void insertFront(Fish& data) {
+    void insertFront(Fish* data) {
         if (size == 0) {
             Node* node = new Node(data);
             first = node;
             last = node;
             size++;
-            return;
         }
         else {
             Node* node = new Node(data);
             node->setLink(first);
             first = node;
             size++;
-            return;
         }
     }
 
-    void insertBack(Fish& data) {
+    void insertBack(Fish* data) {
         if (size == 0) {
             Node* node = new Node(data);
             first = node;
             last = node;
             size++;
-            return;
         }
         else {
             Node* node = new Node(data);
             last->setLink(node);
             last = node;
             size++;
-            return;
         }
     }
 
-    void deleteNode(Fish& data) {
+    void deleteNode(Fish* data) {
         if (size == 0) {
             return;
         }
-        else if (size == 0) {
+        else if (size == 1) {
             delete first;
             first = nullptr;
             last = nullptr;
@@ -107,7 +82,7 @@ public:
             Node* trailCurrent = nullptr;
             Node* current = first;
             while (current != nullptr) {
-                if (current->getData().equals(data)) {
+                if (data == current->getData()) {
                     if (current == first) {
                         first = first->getLink();
                         delete current;
@@ -137,7 +112,7 @@ public:
         }
     }
 
-    Fish& getFirst() {
+    Fish* getFirst() {
         return first->getData();
     }
 
@@ -153,9 +128,9 @@ public:
             delete temp;
             temp = nullptr;
         }
+        size = 0;
         first = nullptr;
         last = nullptr;
-        size = 0;
     }
 
     ~SinglyLinkedList() {
@@ -171,7 +146,7 @@ class Stack {
 public:
     Stack() {}
 
-    void push(Fish& e) {
+    void push(Fish* e) {
         list.insertFront(e);
     }
 
@@ -179,7 +154,7 @@ public:
         list.deleteNode(list.getFirst());
     }
 
-    bool empty() {
+    bool isEmpty() {
         if (list.length() == 0) {
             return true;
         }
@@ -188,15 +163,13 @@ public:
         }
     }
 
-    Fish& top() {
+    Fish* top() {
         return list.getFirst();
     }
 
     int size() {
         return list.length();
     }
-
-    ~Stack() {}
 private:
     SinglyLinkedList list;
 };
@@ -204,8 +177,7 @@ private:
 class Queue {
 public:
     Queue() {}
-
-    void enqueue(Fish& e) {
+    void enqueue(Fish* e) {
         list.insertBack(e);
     }
 
@@ -213,7 +185,7 @@ public:
         list.deleteNode(list.getFirst());
     }
 
-    bool empty() {
+    bool isEmpty() {
         if (list.length() == 0) {
             return true;
         }
@@ -222,46 +194,42 @@ public:
         }
     }
 
-    Fish& front() {
+    Fish* front() {
         return list.getFirst();
     }
 
     int size() {
         return list.length();
     }
-
-    ~Queue() {}
 private:
     SinglyLinkedList list;
 };
 
-// Time complexity is O(N) - 100%
+// Time complexity is O(N)
+// Score is 100%
 int solution(vector<int>& A, vector<int>& B) {
     // write your code in C++14 (g++ 6.2.0)
-    const int DOWN_STREAM = 1;
     Stack stack;
     Queue queue;
     for (int i = 0; i < A.size(); i++) {
-        Fish fish(A[i], B[i]);
+        Fish* fish = new Fish(A[i], B[i]);
         queue.enqueue(fish);
     }
 
-    while (queue.empty() == false) {
-        if (stack.empty() == true) {
-            stack.push(queue.front());
-            queue.dequeue();
-        }
-        else if (queue.front().getDownstream() == DOWN_STREAM) {
-            stack.push(queue.front());
-            queue.dequeue();
-        }
-        else {
-            if (stack.top().getDownstream() == DOWN_STREAM) {
-                if (stack.top().getSize() > queue.front().getSize()) {
+    while (queue.isEmpty() == false) {
+        if (stack.isEmpty() == false) {
+            if (queue.front()->getDirection() == 0) {
+                if (stack.top()->getDirection() == 0) {
+                    stack.push(queue.front());
                     queue.dequeue();
                 }
                 else {
-                    stack.pop();
+                    if (stack.top()->getSize() > queue.front()->getSize()) {
+                        queue.dequeue();
+                    }
+                    else {
+                        stack.pop();
+                    }
                 }
             }
             else {
@@ -269,11 +237,11 @@ int solution(vector<int>& A, vector<int>& B) {
                 queue.dequeue();
             }
         }
+        else {
+            stack.push(queue.front());
+            queue.dequeue();
+        }
     }
 
     return stack.size();
-}
-
-int main() {
-
 }

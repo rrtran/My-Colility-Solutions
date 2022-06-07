@@ -1,8 +1,3 @@
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 class Counter {
 public:
     Counter() : counter(0), maxCounter(nullptr) {}
@@ -40,7 +35,8 @@ private:
 };
 
 
-// Time complexity is: O(N+M)
+// Time complexity is O(N+M)
+// Score is 100%
 vector<int> solution(int N, vector<int>& A) {
     // write your code in C++14 (g++ 6.2.0)
     int* maxCounter = new int(0);
@@ -76,8 +72,4 @@ vector<int> solution(int N, vector<int>& A) {
     }
 
     return resultCounters;
-}
-
-int main() {
-
 }

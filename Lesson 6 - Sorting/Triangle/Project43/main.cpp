@@ -1,7 +1,3 @@
-#include <vector>
-
-using namespace std;
-
 void divide(vector<long>& s, vector<long>& s1, vector<long>& s2) {
     for (int i = 0; i < s.size() / 2; i++) {
         s1.push_back(s[i]);
@@ -58,6 +54,8 @@ void mergeSort(vector<long>& s) {
     mergeSortRecur(s);
 }
 
+// Time complexity is O(N * log(N))
+// Score is 100%
 int solution(vector<int>& A) {
     // write your code in C++14 (g++ 6.2.0)
     vector<long> B;
@@ -106,8 +104,4 @@ int solution(vector<int>& A) {
     }
 
     return 0;
-}
-
-int main() {
-
 }

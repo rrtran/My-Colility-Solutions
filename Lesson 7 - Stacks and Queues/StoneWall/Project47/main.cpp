@@ -1,7 +1,3 @@
-#include <vector>
-
-using namespace std;
-
 class Node {
 public:
     Node() : data(0), link(nullptr) {}
@@ -195,6 +191,8 @@ private:
     SinglyLinkedList list;
 };
 
+// Time complexity is O(N)
+// Score is 100%
 int solution(vector<int>& H) {
     // write your code in C++14 (g++ 6.2.0)
     Stack stack;
@@ -232,8 +230,4 @@ int solution(vector<int>& H) {
     }
 
     return blockCount;
-}
-
-int main() {
-
 }

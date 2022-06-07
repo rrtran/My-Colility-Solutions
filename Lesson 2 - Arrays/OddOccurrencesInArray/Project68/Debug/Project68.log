@@ -1,0 +1,4 @@
+﻿  main.cpp
+C:\Users\Aozora\Workspace\CppProjects\Project68\Project68\main.cpp(233,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project68\Project68\main.cpp(242,23): warning C4018: '<': signed/unsigned mismatch
+  Project68.vcxproj -> C:\Users\Aozora\Workspace\CppProjects\Project68\Debug\Project68.exe

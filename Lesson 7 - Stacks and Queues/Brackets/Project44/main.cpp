@@ -1,7 +1,3 @@
-#include <string>
-
-using namespace std;
-
 class Node {
 public:
     Node() : data(0), link(nullptr) {}
@@ -192,6 +188,8 @@ private:
     SinglyLinkedList list;
 };
 
+// Time complexity is O(N)
+// Score is 100%
 int solution(string& S) {
     // write your code in C++14 (g++ 6.2.0)
     Queue queue;
@@ -257,74 +255,4 @@ int solution(string& S) {
     else {
         return 0;
     }
-}
-
-// Time complexity is O(N) - 100%
-int solution2(string& S) {
-    // write your code in C++14 (g++ 6.2.0)
-    Stack stack;
-    Queue queue;
-    for (int i = 0; i < S.length(); i++) {
-        queue.enqueue(S[i]);
-    }
-
-    while (queue.empty() == false) {
-        if (stack.empty() == true) {
-            stack.push(queue.front());
-            queue.dequeue();
-        }
-        else if (queue.front() == '(') {
-            stack.push(queue.front());
-            queue.dequeue();
-        }
-        else if (queue.front() == '[') {
-            stack.push(queue.front());
-            queue.dequeue();
-        }
-        else if (queue.front() == '{') {
-            stack.push(queue.front());
-            queue.dequeue();
-        }
-        else if (queue.front() == ')') {
-            if (stack.top() == '(') {
-                stack.pop();
-                queue.dequeue();
-            }
-            else {
-                return 0;
-            }
-        }
-        else if (queue.front() == ']') {
-            if (stack.top() == '[') {
-                stack.pop();
-                queue.dequeue();
-            }
-            else {
-                return 0;
-            }
-        }
-        else if (queue.front() == '}') {
-            if (stack.top() == '{') {
-                stack.pop();
-                queue.dequeue();
-            }
-            else {
-                return 0;
-            }
-        }
-        else {
-            return 0;
-        }
-    }
-
-    if (stack.empty() == false) {
-        return 0;
-    }
-    else {
-        return 1;
-    }
-}
-
-int main() {
-
 }

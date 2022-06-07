@@ -1,7 +1,6 @@
-#include <vector>
 
-using namespace std;
-
+// Time complexity is O(N) or O(N * log(N))
+// Score is 100%
 int solution(vector<int>& A) {
     // write your code in C++14 (g++ 6.2.0)
     int inputSum = 0;
@@ -15,10 +14,4 @@ int solution(vector<int>& A) {
     }
 
     return sum - inputSum;
-}
-
-int main()
-{
-
-
 }

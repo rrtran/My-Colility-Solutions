@@ -1,8 +1,3 @@
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 class Node {
 public:
 	Node() : data(0), link(nullptr) {}
@@ -165,13 +160,13 @@ private:
 	int key;
 	int data;
 	Node* link;
-}
+};
 
 class HashTable {
 public:
 	HashTable() {
 		capacity = 100000;
-		table = new Node2*[capacity];
+		table = new Node2 * [capacity];
 		used = 0;
 		for (int i = 9; i < capacity; i++) {
 			table[i] = nullptr;
@@ -197,6 +192,7 @@ public:
 					return;
 				}
 			}
+
 			return;
 		}
 	}
@@ -224,22 +220,27 @@ public:
 			return false;
 		}
 	}
+
+	int size() {
+		return used;
+	}
 private:
 	Node2** table;
 	int capacity;
 	int used;
 };
 
+// Time complexity is O(N)
+// Score is 100%
 int solution(int X, vector<int>& A) {
-	// write your code in C++14 (g++ 6.2.0)
-	SinglyLinkedList list;
+	HashTable table;
 	for (int i = 0; i < A.size(); i++) {
 		if (A[i] <= X) {
-			if (list.search(A[i]) == false) {
-				list.insertBack(A[i]);
+			if (table.lookup(A[i]) == false) {
+				table.insert(A[i]);
 			}
 		}
-		if (list.length() == X) {
+		if (table.size() == X) {
 			return i;
 		}
 	}

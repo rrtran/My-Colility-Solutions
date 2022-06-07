@@ -1,7 +1,5 @@
-#include <vector>
-
-using namespace std;
-
+// Time complexity is O(N)
+// Score is 100%
 int solution(vector<int>& A) {
     // write your code in C++14 (g++ 6.2.0)
 
