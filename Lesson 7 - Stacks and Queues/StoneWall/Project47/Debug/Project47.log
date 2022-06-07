@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Aozora\Workspace\CppProjects\Project47\Project47\main.cpp(202,23): warning C4018: '<': signed/unsigned mismatch
+  Project47.vcxproj -> C:\Users\Aozora\Workspace\CppProjects\Project47\Debug\Project47.exe

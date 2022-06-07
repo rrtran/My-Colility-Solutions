@@ -1,0 +1,9 @@
+﻿  main.cpp
+C:\Users\Aozora\Workspace\CppProjects\Project42\Project42\main.cpp(7,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project42\Project42\main.cpp(11,31): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project42\Project42\main.cpp(35,12): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project42\Project42\main.cpp(36,10): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project42\Project42\main.cpp(51,12): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project42\Project42\main.cpp(71,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project42\Project42\main.cpp(77,20): warning C4018: '<': signed/unsigned mismatch
+  Project42.vcxproj -> C:\Users\Aozora\Workspace\CppProjects\Project42\Debug\Project42.exe

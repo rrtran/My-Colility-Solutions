@@ -1,0 +1,4 @@
+﻿  main.cpp
+C:\Users\Aozora\Workspace\CppProjects\Project41\Project41\main.cpp(111,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Aozora\Workspace\CppProjects\Project41\Project41\main.cpp(77): warning C4715: 'HashTable::lookup': not all control paths return a value
+  Project41.vcxproj -> C:\Users\Aozora\Workspace\CppProjects\Project41\Debug\Project41.exe

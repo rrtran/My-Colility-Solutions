@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Aozora\Workspace\CppProjects\Project56\Project56\main.cpp(92): warning C4715: 'HashTable::lookup': not all control paths return a value
+  Project56.vcxproj -> C:\Users\Aozora\Workspace\CppProjects\Project56\Debug\Project56.exe
